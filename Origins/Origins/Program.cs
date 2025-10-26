@@ -6,7 +6,7 @@
         {
             // Text strings ---
             string intro = "You wake up in your spaceship, good old Mineral Rider 1.";
-            string trySleep1 =  ;
+            string trySleep1 = "You try to go back to sleep but a rotten smell wakes you up...";
             string turnLeft = "You turn your head slowly to your left... you see your captain, or what's left of him, " +
                 "with a very dead expression on his face.";
             string eternalNightmare = "The putrid smell consumes all the oxygen of your body. " +
