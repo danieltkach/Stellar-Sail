@@ -5,6 +5,7 @@
         public static Dictionary<string, StoryNode> Load()
         {
             var nodes = new Dictionary<string, StoryNode>();
+
             var introNode = new StoryNode
             {
                 Name = "intro",

@@ -2,26 +2,11 @@
 {
     internal class StoryBuilder
     {
-        public static Dictionary<string, StoryNode> Load()
+        private readonly Dictionary<string, StoryNode> nodes = [];
+
+        public Dictionary<string, StoryNode> Load()
         {
-            var nodes = new Dictionary<string, StoryNode>();
-
-            void AddNode(string name, string text, params (string Text, string Link)[] choices)
-            {
-                var storyChoices = choices.Select(c => new StoryChoice
-                {
-                    Text = c.Text,
-                    Link = c.Link
-                }).ToList();
-
-                var node = new StoryNode
-                {
-                    Name = name,
-                    Text = text,
-                    Choices = storyChoices
-                };
-                nodes.Add(node.Name, node);
-            }
+            nodes.Clear();
 
             AddNode("intro",
                 "You wake up in your spaceship, good old Mineral Rider 1.",
@@ -36,7 +21,8 @@
             );
 
             AddNode("drifting_death",
-                "The putrid smell consumes all the oxygen of your body. You drift into space forever, into an eternal nightmare."
+                "The putrid smell consumes all the oxygen of your body. You drift into space forever, into an eternal nightmare.",
+                ending: new Ending { Number = 1, Title = "The Drifter" }
             );
 
             AddNode("turned_left",
@@ -61,14 +47,44 @@
             );
 
             AddNode("expelled",
-                "You are expelled into deep space... hopefully someone rescues you soon."
+                "You are expelled into deep space... hopefully someone rescues you soon.",
+                ending: new Ending { Number = 2, Title = "The Expelled" }
             );
 
             AddNode("under_construction",
-                "This part of the story is still under construction. Stay tuned for more adventures!"
+                "This part of the story is still under construction. Stay tuned for more adventures!",
+                ending: new Ending { Number = 3, Title = "Under Construction" }
             );
 
             return nodes;
+        }
+
+        private void AddNode(string name, string text, Ending ending)
+        {
+            var node = new StoryNode
+            {
+                Name = name,
+                Text = text,
+                Ending = ending
+            };
+            nodes.Add(node.Name, node);
+        }
+
+        private void AddNode(string name, string text, params (string Text, string Link)[] choices)
+        {
+            var storyChoices = choices.Select(c => new StoryChoice
+            {
+                Text = c.Text,
+                Link = c.Link
+            }).ToList();
+
+            var node = new StoryNode
+            {
+                Name = name,
+                Text = text,
+                Choices = storyChoices
+            };
+            nodes.Add(node.Name, node);
         }
     }
 }
