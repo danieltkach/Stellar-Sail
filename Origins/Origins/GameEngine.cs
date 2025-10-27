@@ -33,7 +33,7 @@
         {
             if (CurrentNode.Ending != null)
             {
-                Console.WriteLine($"\n=== ENDING #{CurrentNode.Ending.Number}: {CurrentNode.Ending.Title} ===");
+                Print($"\n=== ENDING #{CurrentNode.Ending.Number}: {CurrentNode.Ending.Title} ===", "ending");
 
                 // Track discovered ending
                 if (!DiscoveredEndings.Contains(CurrentNode.Ending.Number))
@@ -41,7 +41,7 @@
                     DiscoveredEndings.Add(CurrentNode.Ending.Number);
                 }
 
-                Console.WriteLine($"\nYou've discovered {DiscoveredEndings.Count} ending(s) so far!");
+                Print($"You've discovered {DiscoveredEndings.Count} ending(s) so far!", "highlight");
             }
 
             GameState = GameState.Ended;
@@ -49,12 +49,15 @@
 
         public void DisplayCurrentNode()
         {
-            Console.WriteLine(CurrentNode.Text);
+            Console.WriteLine();
+            Print(CurrentNode.Text, "normal");
+
             if (CurrentNode.Choices.Count > 0)
             {
+                Console.WriteLine(); 
                 for (int i = 0; i < CurrentNode.Choices.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1} > {CurrentNode.Choices[i].Text}");
+                    Print($"{i + 1}. {CurrentNode.Choices[i].Text}", "menu");
                 }
             }
         }
@@ -63,15 +66,20 @@
         {
             while (true)
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("> ");
+                Console.ResetColor();
+
                 var choice = Console.ReadLine();
                 bool validInput = int.TryParse(choice, out int parsedChoice);
                 bool choiceInRange = parsedChoice >= 1 && parsedChoice <= CurrentNode.Choices.Count;
+
                 if (validInput && choiceInRange)
                 {
                     return CurrentNode.Choices[parsedChoice - 1].Link;
                 }
-                Console.WriteLine("Invalid choice. Try again.");
+
+                Print("Invalid choice. Try again.", "alert");
             }
         }
 
@@ -84,22 +92,24 @@
             else
             {
                 Console.WriteLine($"ERROR: Node '{nodeName}' not found!");
-                GameState = GameState.Ended;  // End game on error
+                GameState = GameState.Ended;
             }
         }
 
-        private static void Print(string text, string type = "normal")
+        // Private helper method for colored output
+        private void Print(string text, string type = "normal")
         {
             Console.ForegroundColor = type switch
             {
-                "normal" => ConsoleColor.Green,        // Story text
-                "highlight" => ConsoleColor.Yellow,    // Important info
-                "alert" => ConsoleColor.Red,           // Errors/warnings
-                "ending" => ConsoleColor.Cyan,         // Ending titles
-                "menu" => ConsoleColor.DarkYellow,     // Choice menus
+                "normal" => ConsoleColor.Green,
+                "highlight" => ConsoleColor.Yellow,
+                "alert" => ConsoleColor.Red,
+                "ending" => ConsoleColor.Cyan,
+                "menu" => ConsoleColor.DarkYellow,
                 _ => ConsoleColor.White,
             };
             Console.WriteLine(text);
+            Console.ResetColor();
         }
     }
 }

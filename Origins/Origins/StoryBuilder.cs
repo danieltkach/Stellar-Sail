@@ -21,7 +21,7 @@
             );
 
             AddNode("drifting_death",
-                "The putrid smell consumes all the oxygen of your body. You drift into space forever, into an eternal nightmare.",
+                "The putrid smell consumes all the oxygen of your body. You drift into space forever, into a smelly nightmare.",
                 ending: new Ending { Number = 1, Title = "The Drifter" }
             );
 
@@ -34,14 +34,14 @@
 
             AddNode("found_lever",
                 "You see a lever that gets your attention, which says 'EJECT'",
-                ("Push lever", "expelled"),
                 ("Look around", "found_ship_controls"),
+                ("Push lever", "expelled"),
                 ("Go back to sleep", "drifting_death")
             );
 
             AddNode("found_ship_controls",
                 "Now fully awake and fully scared, you decide to take a moment to look around more carefully and you find the ship's instructions manual.",
-                ("Push lever", "expelled"),
+                ("Push that lever...", "expelled"),
                 ("Read manual", "under_construction"),
                 ("Go back to sleep", "drifting_death")
             );
