@@ -1,6 +1,6 @@
 ﻿namespace Origins
 {
-    internal class StoryBuilder
+    internal class OldStoryBuilder
     {
         public static Dictionary<string, StoryNode> Load()
         {

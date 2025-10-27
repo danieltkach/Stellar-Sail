@@ -40,7 +40,7 @@
             );
 
             AddNode("found_ship_controls",
-                "Now fully awake and fully scared, you decided to take a moment to think and you found the ship's instructions manual.",
+                "Now fully awake and fully scared, you decide to take a moment to look around more carefully and you find the ship's instructions manual.",
                 ("Push lever", "expelled"),
                 ("Read manual", "under_construction"),
                 ("Go back to sleep", "drifting_death")
